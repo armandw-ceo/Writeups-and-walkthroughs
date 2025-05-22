@@ -6,7 +6,7 @@
 
 ### Rooms
 
-#### [Volt Typhoon](./Volt-Typhoon-THM)
+#### [Volt Typhoon](./Volt-Typhoon-THM.md)
 ---
 
 ### CTFs
