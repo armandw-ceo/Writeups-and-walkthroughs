@@ -4,9 +4,11 @@
 
 ## TryHackMe Writeups/Walkthroughs
 
-### Rooms
+### Walkthroughs
 
-#### [Volt Typhoon](./Volt-Typhoon-THM.md)
+
 ---
 
 ### CTFs
+
+#### [Volt Typhoon](./Volt-Typhoon-THM.md)
