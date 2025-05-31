@@ -238,24 +238,39 @@ Password: Password1
 
 ### No. 6 What is the computer name?
 
-
+Ans: Use the "sysinfo" command
 
 ### No. 7 What is the target domain?
 
+Ans: Look at the results of the previous command
+
 ### No. 8 What is the name of the share likely created by the user?
+
+Ans: Use the "CD" command to navigate to c:/shares
 
 ### No. 9 What is the NTLM hash of the jchambers user?
 
+Ans: Navigate back to C:\windows\System32 and run the "hashdump" command
+
 ### No. 10 What is the cleartext password of the jchambers user?
+
+Ans: Use crackstation to crack the hash found using the "hashdump" command.
 
 ### No. 11 Where is the "secrets.txt"  file located? (Full path of the file)
 
+Ans: Use the "search" command to search for the file.
+
 ### No. 12 What is the Twitter password revealed in the "secrets.txt" file?
+
+Ans: Use the "cat" command to read the contents of the file
 
 ### No. 13 Where is the "realsecret.txt" file located? (Full path of the file)
 
+Ans: Use the "search" command to search for the file.
+
 ### No. 14 What is the real secret?
 
+Ans: Use the "cat" command to read the contents of the file
 
 ---
 
