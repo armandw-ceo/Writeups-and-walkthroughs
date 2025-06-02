@@ -8,4 +8,4 @@
 ### [Hunt Me 1: Payment Collectors](./Hunt_Me_I.md)
 ### [Metasploit: Meterpreter](./Metasploit-Meterpreter.md)
 ### [Blue](./blue.md)
-### [Ice}(./Ice.md)
+### [Ice](./Ice.md)
