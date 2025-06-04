@@ -9,3 +9,4 @@
 ### [Metasploit: Meterpreter](./Metasploit-Meterpreter.md)
 ### [Blue](./blue.md)
 ### [Ice](./Ice.md)
+### [Easy Peasy](./easy-peasy.md)
