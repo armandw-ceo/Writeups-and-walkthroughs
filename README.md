@@ -11,3 +11,7 @@
 ### [Ice](./Ice.md)
 ### [Easy Peasy](./easy-peasy.md)
 ### [Probe](./probe.md)
+
+## Hack The Box
+
+### [Legacy](./Legacy.md)
