@@ -1,4 +1,4 @@
-# Hack The Box - Devel Writeup
+# Hack The Box - Devel Writeup 6/7/2025
 
 ## 1. Initial Scan
 
