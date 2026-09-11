@@ -1,7 +1,7 @@
 # FutureVera — Domain Enumeration Writeup
 
 ## Objective
-Enumerate subdomains on the target `futurevera.thm` (10.66.161.104) and identify a hidden host leaking a flag.
+Enumerate subdomains on the target `futurevera.thm`  and identify a hidden host leaking a flag.
 
 ## Steps
 
