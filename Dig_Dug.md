@@ -20,5 +20,3 @@ query type. Querying for NS returned a TXT record. Worth trying multiple
 record types even if one type is refused/fails; the misconfiguration
 means type doesn't matter once you get a response.
 
-## Techniques used
-[[dns-enum-cheatsheet]]
